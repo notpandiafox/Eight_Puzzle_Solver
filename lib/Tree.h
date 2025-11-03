@@ -3,14 +3,18 @@
  
 #include <memory>
 #include <vector>
+#include "Problem.h"
 
 struct TreeNode : public std::enable_shared_from_this<TreeNode>
 {
+
+    int costToHere;
+    int distToGoal;
+
     std::weak_ptr<TreeNode> parent;
     std::vector<std::shared_ptr<TreeNode>> children;
 
-    std::vector<std::vector<char>> state;
-    int totalCost;
+    Problem state;
 
     void addChild(std::shared_ptr<TreeNode> child) 
     {
@@ -22,12 +26,14 @@ struct TreeNode : public std::enable_shared_from_this<TreeNode>
 class Tree
 {
     public:
+    Tree(Problem newState)
+    {
+        root->costToHere = 0;
+        root->distToGoal = 0;
+        root->state = newState;
+    }
 
-
-    private:
-
-
-
+    std::shared_ptr<TreeNode> root;
 };
 
 #endif // TREE_H

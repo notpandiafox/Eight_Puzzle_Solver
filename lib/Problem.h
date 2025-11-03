@@ -9,6 +9,7 @@ struct Problem
 {
     std::vector<std::vector<char>> initial_state;
     std::vector<std::vector<char>> goal_state;
+    std::vector<std::vector<char>> state;
 
     const std::vector<std::pair<int,int>> operators{
         {-1, 0},//up
@@ -19,6 +20,12 @@ struct Problem
 
     Problem(std::vector<std::vector<char>> initial_state, std::vector<std::vector<char>> goal_state)
     :initial_state{initial_state}, goal_state{goal_state} { }
+
+
+    void operator=(Problem& otherProblem)
+    {
+        state = otherProblem.state;
+    }
 
 };
 

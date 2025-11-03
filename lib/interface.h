@@ -5,9 +5,37 @@ void introPrint();
 void printIntroMap(std::vector<std::vector<char>>& puzzle);
 void printLongVert();
 void chooseWhere(std::vector<std::vector<char>>& puzzle);
+void chooseWhat();
 
 const char LONG_VERTICAL = '|';
 const char LONG_HORIZONTAL = '-';
+
+enum Algorithm{ UCS, Euclidean, MisplacedTiles};
+
+Algorithm chooseWhatAlgo()
+{
+    int input;
+
+     std::cout << "what algorithm do you want to choose?" << std::endl;
+     std::cout << "Uniform Cost Search (0)" << std::endl;
+     std::cout << " A* with the misplaced tile heurestic? (1)" << std::endl;
+     std::cout << " A* with the Euclidean Distance heuristic (2)" << std::endl;
+     std::cin >> input;
+
+     while(1)
+     {
+        if(input <= 2 && input >= 0)
+        {
+            return (Algorithm)input;
+        }
+        else
+        {
+            std::cout << "try trying one of the available options please" << std::endl;
+        }
+     }
+
+}
+
 
 void introPrint()
 {
@@ -45,7 +73,6 @@ void chooseWhere(std::vector<std::vector<char>>& puzzle)
         else
         {
             std::cout << "Invalid input! Enter letters a-i only." << std::endl;
-            ;
         }
         
     }
