@@ -12,8 +12,8 @@ struct Problem {
     std::vector<std::vector<int>> initial_state;
     std::vector<std::vector<int>> goal_state;
     std::vector<std::vector<int>> state;
-	int BLANK_TILE_X = -1;
-	int BLANK_TILE_Y = -1;
+	int BLANK_TILE_RW = -1;
+	int BLANK_TILE_CL = -1;
 	const int PUZZLE_SIZE = 3; // nxn puzzle
 
 	friend std::ostream& operator<<(std::ostream& os, const Problem& obj);
@@ -51,8 +51,8 @@ struct Problem {
 		for(int i = 0; i < PUZZLE_SIZE; ++i) {
         	for (int j = 0; j < PUZZLE_SIZE; ++j) {
 				if(state[i][j] == -1) {
-					BLANK_TILE_X = i;
-					BLANK_TILE_Y = j;
+					BLANK_TILE_RW = i;
+					BLANK_TILE_CL = j;
 				}
 			}
     	}
@@ -62,20 +62,20 @@ struct Problem {
 			if (validOperations.at(i) == operation) {
 				switch (operation) {
 					case MOVE_UP:
-						std::swap(state[BLANK_TILE_X][BLANK_TILE_Y - 1], state[BLANK_TILE_X][BLANK_TILE_Y]);
-						BLANK_TILE_Y--;
+						std::swap(state[BLANK_TILE_CL][BLANK_TILE_RW - 1], state[BLANK_TILE_CL][BLANK_TILE_RW]);
+						BLANK_TILE_RW--;
 						break;
 					case MOVE_DOWN:
-						std::swap(state[BLANK_TILE_X][BLANK_TILE_Y + 1], state[BLANK_TILE_X][BLANK_TILE_Y]);
-						BLANK_TILE_Y++;
+						std::swap(state[BLANK_TILE_CL][BLANK_TILE_RW + 1], state[BLANK_TILE_CL][BLANK_TILE_RW]);
+						BLANK_TILE_RW++;
 						break;
 					case MOVE_LEFT:
-						std::swap(state[BLANK_TILE_X - 1][BLANK_TILE_Y], state[BLANK_TILE_X][BLANK_TILE_Y]);
-						BLANK_TILE_X--;
+						std::swap(state[BLANK_TILE_CL - 1][BLANK_TILE_RW], state[BLANK_TILE_CL][BLANK_TILE_RW]);
+						BLANK_TILE_CL--;
 						break;
 					case MOVE_RIGHT:
-						std::swap(state[BLANK_TILE_X + 1][BLANK_TILE_Y], state[BLANK_TILE_X][BLANK_TILE_Y]);
-						BLANK_TILE_X++;
+						std::swap(state[BLANK_TILE_CL + 1][BLANK_TILE_RW], state[BLANK_TILE_CL][BLANK_TILE_RW]);
+						BLANK_TILE_CL++;
 						break;
 					default:
 						break;
@@ -85,16 +85,16 @@ struct Problem {
 	}
 	std::vector<PuzzleOperation> getValidOperations() {
 		std::vector<PuzzleOperation> validOperations = {};
-		if (BLANK_TILE_Y > 0) {
+		if (BLANK_TILE_RW > 0) {
 			validOperations.push_back(MOVE_UP);
 		}
-		if (BLANK_TILE_Y < PUZZLE_SIZE - 1) {
+		if (BLANK_TILE_RW < (PUZZLE_SIZE - 1)) {
 			validOperations.push_back(MOVE_DOWN);
 		}
-		if (BLANK_TILE_X > 0) {
+		if (BLANK_TILE_CL > 0) {
 			validOperations.push_back(MOVE_LEFT);
 		}
-		if (BLANK_TILE_X < PUZZLE_SIZE - 1) {
+		if (BLANK_TILE_CL < (PUZZLE_SIZE - 1)) {
 			validOperations.push_back(MOVE_RIGHT);
 		}
 
