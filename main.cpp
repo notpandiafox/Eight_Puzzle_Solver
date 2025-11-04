@@ -1,23 +1,78 @@
 #include "lib/AStar.h"
 #include "lib/interface.h"
 
-int main(int argc, char const *argv[])
+#include <iostream>
+#include <vector>
 
-{
-    std::vector<std::vector<int>> DefaultPuzzle{
-        {'a','b','c'},
-        {'d','e','f'},
-        {'g','h', 'i'}
-    };
+std::vector<std::vector<int>> readPuzzle() {
+    std::vector<std::vector<int>> puzzle(3, std::vector<int>(3));
+    std::cout << "Enter the first row, use space or tabs between numbers: ";
+    for (int j = 0; j < 3; ++j) std::cin >> puzzle[0][j];
 
-    std::vector<std::vector<int>> GoalPuzzle{
-        {'1','2','3'},
-        {'4','5','6'},
-        {'7','8', ' '}
-    };
+    std::cout << "Enter the second row, use space or tabs between numbers: ";
+    for (int j = 0; j < 3; ++j) std::cin >> puzzle[1][j];
 
-    introPrint();
-    chooseWhere(DefaultPuzzle);
+    std::cout << "Enter the third row, use space or tabs between numbers: ";
+    for (int j = 0; j < 3; ++j) std::cin >> puzzle[2][j];
+
+    return puzzle;
+}
+
+int main() {
+    std::cout << "Welcome to XXX (replace with your ID) 8 puzzle solver.\n";
+    std::cout << "Type \"1\" to use a default puzzle, or \"2\" to enter your own puzzle.\n";
+
+    int choice;
+    std::cin >> choice;
+
+    std::vector<std::vector<int>> startState;
+    std::vector<std::vector<int>> goalState = {{1,2,3},{4,5,6},{7,8,0}};
+
+    if (choice == 1) {
+        startState = {{1,2,3},{4,8,0},{7,6,5}}; // default example
+    } else {
+        startState = readPuzzle();
+    }
+
+    std::cout << "\nEnter your choice of algorithm:\n";
+    std::cout << "1. Uniform Cost Search\n";
+    std::cout << "2. A* with the Misplaced Tile heuristic.\n";
+    std::cout << "3. A* with the Euclidean distance heuristic.\n";
+
+    int algoChoice;
+    std::cin >> algoChoice;
+
+    // Create Problem instance
+    Problem problem(startState, goalState);
+
+    std::cout << "\nExpanding state:\n";
+    std::cout << problem;  // relies on your overloaded << operator
+
+    // Choose heuristic
+    if (algoChoice == 1) {
+        HEURISTIC_CHOICE = 0;
+        std::cout << "\nRunning Uniform Cost Search...\n";
+    } else if (algoChoice == 2) {
+        HEURISTIC_CHOICE = 1;
+        std::cout << "\nRunning A* with Misplaced Tile heuristic...\n";
+    } else if (algoChoice == 3) {
+        HEURISTIC_CHOICE = 2;
+        std::cout << "\nRunning A* with Euclidean distance heuristic...\n";
+    } else {
+        std::cout << "Invalid choice. Exiting.\n";
+        return 0;
+    }
+
+    // Run A*
+    Astar solver(problem);
+
+    bool found = solver.findPath();
+
+    if (found) {
+        std::cout << "\n Goal state reached!\n";
+    } else {
+        std::cout << "\n No solution found.\n";
+    }
 
     return 0;
 }

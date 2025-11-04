@@ -40,28 +40,41 @@ public:
 				return true;
 
 			//visited.insert(whereWeAre);
+
 			for(PuzzleOperation valid : validPuzzleOperations)
 			{
+				//initialize our child node
 				initializeChildPtr = std::make_shared<TreeNode>();
-				initializeChildPtr->costToHere = whereWeAre->f();
-				initializeChildPtr->problem = whereWeAre->problem;
+				initializeChildPtr->costToHere = whereWeAre->costToHere + 1;
+				initializeChildPtr->problem = whereWeAre->problem; 
 				initializeChildPtr->problem.runOperation(validPuzzleOperations, valid);
+
+				//check if the child node is a repeat state
+				std::string stringifiedPuzzle = initializeChildPtr->problem.stringify();
+
+				if(visited.count(stringifiedPuzzle))
+				{
+					continue;
+				}
+				else
+				{
+					visited.insert(stringifiedPuzzle);
+				}
+
+				//find the h(n)
 				if(HEURISTIC_CHOICE == 0)
 					initializeChildPtr->distToGoal = heuristicUniform(initializeChildPtr->problem);// TODO: MAKE SURE IT IS UNIFORM SEARCH
 				else if(HEURISTIC_CHOICE == 1)
 					initializeChildPtr->distToGoal = heuristicTile(initializeChildPtr->problem);
 				else if(HEURISTIC_CHOICE == 2)
 					initializeChildPtr->distToGoal = heuristicEuclidean(initializeChildPtr->problem);
-				
+			
+				//push to frontier
 				frontier.push(initializeChildPtr);
 
-
-
-				whereWeAre->addChild(std::make_shared<TreeNode>());
-				initializeChildPtr = whereWeAre->children;
+				//add to the tree
+				whereWeAre->addChild(initializeChildPtr);
 			}
-
-			++i;
 
 		}
 	}
@@ -71,7 +84,7 @@ private:
 	//I so that it will compare and get the best f() from each TreeNode
 	std::priority_queue<std::shared_ptr<TreeNode>, std::vector<std::shared_ptr<TreeNode>>, CompareTreeNode> frontier;
 	
-	std::unordered_set<TreeNode> visited;
+	std::unordered_set<std::string> visited;
 
 	std::shared_ptr<TreeNode> whereWeAre;
 

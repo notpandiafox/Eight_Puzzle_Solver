@@ -5,7 +5,7 @@
 #include <utility>
 #include <ostream>
 
-const enum PuzzleOperation {MOVE_UP, MOVE_DOWN, MOVE_LEFT, MOVE_RIGHT};
+enum PuzzleOperation {MOVE_UP, MOVE_DOWN, MOVE_LEFT, MOVE_RIGHT};
 
 struct Problem {
 	// function header
@@ -18,10 +18,10 @@ struct Problem {
 
 	friend std::ostream& operator<<(std::ostream& os, const Problem& obj);
 
-	void runOperation(std::vector<PuzzleOperation> validOperations, PuzzleOperation operation);
-	bool isGoalState();
-	void updateBlankTile();
-	std::vector<PuzzleOperation> getValidOperations();
+	// void runOperation(std::vector<PuzzleOperation> validOperations, PuzzleOperation operation);
+	// bool isGoalState();
+	// void updateBlankTile();
+	// std::vector<PuzzleOperation> getValidOperations();
 
 	// initializers
     Problem(std::vector<std::vector<int>> initial_state, std::vector<std::vector<int>> goal_state)
@@ -95,7 +95,7 @@ struct Problem {
 
 		return {};
 	}
-    std::string stringify(const std::vector<std::vector<int>>& state) {
+    std::string stringify() {
         std::string key;
         for (int i = 0; i < PUZZLE_SIZE; i++) {
             for (int j = 0; j < PUZZLE_SIZE; j++) {
