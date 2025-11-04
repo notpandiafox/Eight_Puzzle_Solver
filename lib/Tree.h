@@ -14,7 +14,7 @@ struct TreeNode : public std::enable_shared_from_this<TreeNode>
     std::weak_ptr<TreeNode> parent;
     std::vector<std::shared_ptr<TreeNode>> children;
 
-    Problem state;
+    Problem problem;
 
     int f() const
     {
@@ -54,7 +54,7 @@ class Tree
     {
         root->costToHere = 0;
         root->distToGoal = 0;
-        root->state = newState;
+        root->problem = newState;
     }
 
     std::shared_ptr<TreeNode> root;
