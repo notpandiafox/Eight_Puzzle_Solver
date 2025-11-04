@@ -19,59 +19,57 @@ std::vector<std::vector<int>> readPuzzle() {
 }
 
 int main() {
-    std::cout << "Welcome to XXX (replace with your ID) 8 puzzle solver.\n";
-    std::cout << "Type \"1\" to use a default puzzle, or \"2\" to enter your own puzzle.\n";
+    std::cout << "Welcome to XXX (replace with your ID) 8 puzzle solver." << std::endl;
+    std::cout << "Type \"1\" to use a default puzzle, or \"2\" to enter your own puzzle." << std::endl;
 
     int choice;
     std::cin >> choice;
 
     std::vector<std::vector<int>> startState;
-    std::vector<std::vector<int>> goalState = {{1,2,3},{4,5,6},{7,8,0}};
+    std::vector<std::vector<int>> goalState = {{1,2,3},{4,5,6},{7,8,-1}};
 
     if (choice == 1) {
-        startState = {{1,2,3},{4,8,0},{7,6,5}}; // default example
+        startState = {{1,2,3},{4,8,-1},{7,6,5}};
     } else {
         startState = readPuzzle();
     }
 
-    std::cout << "\nEnter your choice of algorithm:\n";
+    std::cout << "\nEnter your choice of algorithm:" << std::endl;
     std::cout << "1. Uniform Cost Search\n";
-    std::cout << "2. A* with the Misplaced Tile heuristic.\n";
-    std::cout << "3. A* with the Euclidean distance heuristic.\n";
+    std::cout << "2. A* with the Misplaced Tile heuristic." << std::endl;
+    std::cout << "3. A* with the Euclidean distance heuristic." << std::endl;
 
     int algoChoice;
     std::cin >> algoChoice;
 
-    // Create Problem instance
     Problem problem(startState, goalState);
 
-    std::cout << "\nExpanding state:\n";
-    std::cout << problem;  // relies on your overloaded << operator
+    std::cout << "\nExpanding state:" << std::endl;
+    std::cout << problem;  
 
-    // Choose heuristic
+    
     if (algoChoice == 1) {
         HEURISTIC_CHOICE = 0;
-        std::cout << "\nRunning Uniform Cost Search...\n";
+        std::cout << "\nRunning Uniform Cost Search..." << std::endl;
     } else if (algoChoice == 2) {
         HEURISTIC_CHOICE = 1;
-        std::cout << "\nRunning A* with Misplaced Tile heuristic...\n";
+        std::cout << "\nRunning A* with Misplaced Tile heuristic..." << std::endl;
     } else if (algoChoice == 3) {
         HEURISTIC_CHOICE = 2;
-        std::cout << "\nRunning A* with Euclidean distance heuristic...\n";
+        std::cout << "\nRunning A* with Euclidean distance heuristic..." << std::endl;
     } else {
-        std::cout << "Invalid choice. Exiting.\n";
+        std::cout << "Invalid choice. Exiting." << std::endl;
         return 0;
     }
 
-    // Run A*
-    Astar solver(problem);
+    Astar puzzleSolver(problem);
 
-    bool found = solver.findPath();
+    bool found = puzzleSolver.findPath();
 
     if (found) {
-        std::cout << "\n Goal state reached!\n";
+        std::cout << "\n Goal state reached!" << std::endl;
     } else {
-        std::cout << "\n No solution found.\n";
+        std::cout << "\n No solution found." << std::endl;
     }
 
     return 0;

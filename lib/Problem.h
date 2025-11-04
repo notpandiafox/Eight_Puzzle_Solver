@@ -99,7 +99,7 @@ struct Problem {
 		}
 
 
-		return {};
+		return validOperations;
 	}
     std::string stringify() {
         std::string key;
