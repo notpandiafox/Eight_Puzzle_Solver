@@ -9,9 +9,9 @@ const enum PuzzleOperation {MOVE_UP, MOVE_DOWN, MOVE_LEFT, MOVE_RIGHT};
 
 struct Problem {
 	// function header
-    std::vector<std::vector<char>> initial_state;
-    std::vector<std::vector<char>> goal_state;
-    std::vector<std::vector<char>> state;
+    std::vector<std::vector<int>> initial_state;
+    std::vector<std::vector<int>> goal_state;
+    std::vector<std::vector<int>> state;
 	int BLANK_TILE_X = -1;
 	int BLANK_TILE_Y = -1;
 	const int PUZZLE_SIZE = 3; // nxn puzzle
@@ -19,11 +19,12 @@ struct Problem {
 	friend std::ostream& operator<<(std::ostream& os, const Problem& obj);
 
 	void runOperation(PuzzleOperation operation);
+	bool isGoalState();
 	void updateBlankTile();
 	std::vector<PuzzleOperation> getValidOperations();
 
 	// initializers
-    Problem(std::vector<std::vector<char>> initial_state, std::vector<std::vector<char>> goal_state)
+    Problem(std::vector<std::vector<int>> initial_state, std::vector<std::vector<int>> goal_state)
     :initial_state{initial_state}, goal_state{goal_state}, state(initial_state) { 
 		updateBlankTile();
 	}
@@ -41,7 +42,7 @@ struct Problem {
 	void updateBlankTile() {
 		for(int i = 0; i < PUZZLE_SIZE; ++i) {
         	for (int j = 0; j < PUZZLE_SIZE; ++j) {
-				if(state[i][j] == ' ') {
+				if(state[i][j] == -1) {
 					BLANK_TILE_X = i;
 					BLANK_TILE_Y = j;
 				}
@@ -54,16 +55,20 @@ struct Problem {
 			if (validOperations.at(i) == operation) {
 				switch (operation) {
 					case MOVE_UP:
+						std::swap(state[BLANK_TILE_X][BLANK_TILE_Y - 1], state[BLANK_TILE_X][BLANK_TILE_Y]);
 						BLANK_TILE_Y--;
 						break;
 					case MOVE_DOWN:
+						std::swap(state[BLANK_TILE_X][BLANK_TILE_Y + 1], state[BLANK_TILE_X][BLANK_TILE_Y]);
 						BLANK_TILE_Y++;
 						break;
 					case MOVE_LEFT:
+						std::swap(state[BLANK_TILE_X - 1][BLANK_TILE_Y], state[BLANK_TILE_X][BLANK_TILE_Y]);
 						BLANK_TILE_X--;
 						break;
 					case MOVE_RIGHT:
-						BLANK_TILE_Y++;
+						std::swap(state[BLANK_TILE_X + 1][BLANK_TILE_Y], state[BLANK_TILE_X][BLANK_TILE_Y]);
+						BLANK_TILE_X++;
 						break;
 					default:
 						break;
