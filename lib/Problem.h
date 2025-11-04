@@ -54,16 +54,20 @@ struct Problem {
 			if (validOperations.at(i) == operation) {
 				switch (operation) {
 					case MOVE_UP:
+						std::swap(state[BLANK_TILE_X][BLANK_TILE_Y - 1], state[BLANK_TILE_X][BLANK_TILE_Y]);
 						BLANK_TILE_Y--;
 						break;
 					case MOVE_DOWN:
+						std::swap(state[BLANK_TILE_X][BLANK_TILE_Y + 1], state[BLANK_TILE_X][BLANK_TILE_Y]);
 						BLANK_TILE_Y++;
 						break;
 					case MOVE_LEFT:
+						std::swap(state[BLANK_TILE_X - 1][BLANK_TILE_Y], state[BLANK_TILE_X][BLANK_TILE_Y]);
 						BLANK_TILE_X--;
 						break;
 					case MOVE_RIGHT:
-						BLANK_TILE_Y++;
+						std::swap(state[BLANK_TILE_X + 1][BLANK_TILE_Y], state[BLANK_TILE_X][BLANK_TILE_Y]);
+						BLANK_TILE_X++;
 						break;
 					default:
 						break;
