@@ -5,6 +5,7 @@
 #include "Tree.h"
 
 #include <queue>
+#include <cmath>
 
 class Astar
 {
@@ -47,6 +48,10 @@ private:
 
 	Tree Tree;
 
+	int heursticUniform(Problem problem) {
+		return 0;
+	}
+
 	int heuristicTile(Problem* brother)
 	{
 		int count{'1'};
@@ -71,9 +76,26 @@ private:
 		return h;
 	}
 	
-	int heuristicEuclidean(Problem* problem)
-	{
-
+	int heuristicEuclidean(Problem problem) {
+		int count{'1'};
+		int blankTile{-1};
+		int h{};
+		int currentValue, goalJ, goalI = -1;
+		for(int i = 0; i < problem.PUZZLE_SIZE; ++i) {
+			for(int j = 0; j < problem.PUZZLE_SIZE; ++j) {
+				if (problem.goal_state[i][j] == problem.state[i][j]) {
+					h = 0;
+					exit;
+				} else {
+					int currentValue = problem.state[i][j];
+					int goalJ = floor(currentValue / problem.PUZZLE_SIZE);
+					int goalI = currentValue - (goalJ * problem.PUZZLE_SIZE) - 1;
+					
+					h = sqrt(pow((goalI - i), 2) + pow((goalJ - j), 2));
+				}
+			}
+		}
+		return h;
 	}
 
 
