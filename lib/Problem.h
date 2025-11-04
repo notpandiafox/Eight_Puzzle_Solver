@@ -34,6 +34,8 @@ struct Problem {
     void operator=(const Problem& otherProblem)
     {
         state = otherProblem.state;
+        initial_state = otherProblem.initial_state;
+        goal_state = otherProblem.goal_state;
     }
 	bool isGoalState() {
 		return (state == goal_state);
@@ -93,6 +95,16 @@ struct Problem {
 
 		return {};
 	}
+    std::string stringify(const std::vector<std::vector<int>>& state) {
+        std::string key;
+        for (int i = 0; i < PUZZLE_SIZE; i++) {
+            for (int j = 0; j < PUZZLE_SIZE; j++) {
+                key += state[i][j];
+            }
+        }
+        return key;
+}
+
 };
 std::ostream& operator<<(std::ostream& os, const Problem& obj) {
 	for(int i = 0; i < obj.PUZZLE_SIZE; ++i) {
