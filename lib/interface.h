@@ -2,13 +2,13 @@
 #include <vector>
 
 void introPrint();
-void printIntroMap(std::vector<std::vector<char>>& puzzle);
+void printIntroMap(std::vector<std::vector<int>>& puzzle);
 void printLongVert();
-void chooseWhere(std::vector<std::vector<char>>& puzzle);
+void chooseWhere(std::vector<std::vector<int>>& puzzle);
 void chooseWhat();
 
-const char LONG_VERTICAL = '|';
-const char LONG_HORIZONTAL = '-';
+const int LONG_VERTICAL = '|';
+const int LONG_HORIZONTAL = '-';
 
 enum Algorithm{ UCS, Euclidean, MisplacedTiles};
 
@@ -43,9 +43,9 @@ void introPrint()
 }
 
 //assuming that the 2d array is filled with letters and ready to be filled up.
-void chooseWhere(std::vector<std::vector<char>>& puzzle)
+void chooseWhere(std::vector<std::vector<int>>& puzzle)
 {
-    char input{};
+    int input{};
     int count{1};
 
     while(count < 9)
@@ -79,7 +79,7 @@ void chooseWhere(std::vector<std::vector<char>>& puzzle)
 
 }
 
-void printIntroMap(std::vector<std::vector<char>>& puzzle)
+void printIntroMap(std::vector<std::vector<int>>& puzzle)
 {    
 
     for(int i = 0; i < 3; ++i)

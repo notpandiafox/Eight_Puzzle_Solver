@@ -4,13 +4,13 @@
 int main(int argc, char const *argv[])
 
 {
-    std::vector<std::vector<char>> DefaultPuzzle{
+    std::vector<std::vector<int>> DefaultPuzzle{
         {'a','b','c'},
         {'d','e','f'},
         {'g','h', 'i'}
     };
 
-    std::vector<std::vector<char>> GoalPuzzle{
+    std::vector<std::vector<int>> GoalPuzzle{
         {'1','2','3'},
         {'4','5','6'},
         {'7','8', ' '}
