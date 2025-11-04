@@ -47,7 +47,7 @@ public:
 				initializeChildPtr->problem = whereWeAre->problem;
 				initializeChildPtr->problem.runOperation(validPuzzleOperations, valid);
 				if(HEURISTIC_CHOICE == 0)
-					initializeChildPtr->distToGoal = heuristicTile();// TODO: MAKE SURE IT IS UNIFORM SEARCH
+					initializeChildPtr->distToGoal = heuristicUniform(initializeChildPtr->problem);// TODO: MAKE SURE IT IS UNIFORM SEARCH
 				else if(HEURISTIC_CHOICE == 1)
 					initializeChildPtr->distToGoal = heuristicTile(initializeChildPtr->problem);
 				else if(HEURISTIC_CHOICE == 2)
@@ -77,7 +77,7 @@ private:
 
 	Tree Tree;
 
-	int heursticUniform(Problem problem) {
+	int heuristicUniform(Problem problem) {
 		return 0;
 	}
 
@@ -92,7 +92,7 @@ private:
 				{
 					++h;
 				}
-				else if(i == brother.PUZZLE_SIZE - 1 && j == brother.PUZZLE_SIZE - 1 && brother->state[i][j] == blankTile)
+				else if(i == brother.PUZZLE_SIZE - 1 && j == brother.PUZZLE_SIZE - 1 && brother.state[i][j] == blankTile)
 				{
 					++h;
 				}
