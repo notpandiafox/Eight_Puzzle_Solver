@@ -18,7 +18,7 @@ struct Problem {
 
 	friend std::ostream& operator<<(std::ostream& os, const Problem& obj);
 
-	void runOperation(PuzzleOperation operation);
+	void runOperation(std::vector<PuzzleOperation> validOperations, PuzzleOperation operation);
 	bool isGoalState();
 	void updateBlankTile();
 	std::vector<PuzzleOperation> getValidOperations();
@@ -47,10 +47,9 @@ struct Problem {
 					BLANK_TILE_Y = j;
 				}
 			}
-    }
+    	}
 	}
-	void runOperation(PuzzleOperation operation) {
-		std::vector<PuzzleOperation> validOperations = getValidOperations();
+	void runOperation(std::vector<PuzzleOperation> validOperations, PuzzleOperation operation) {
 		for (int i = 0; i < validOperations.size(); i++) {
 			if (validOperations.at(i) == operation) {
 				switch (operation) {
