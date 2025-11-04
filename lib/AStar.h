@@ -77,6 +77,7 @@ public:
 			}
 
 		}
+		return false;
 	}
 
 
@@ -122,8 +123,7 @@ private:
 		for(int i = 0; i < problem.PUZZLE_SIZE; ++i) {
 			for(int j = 0; j < problem.PUZZLE_SIZE; ++j) {
 				if (problem.goal_state[i][j] == problem.state[i][j]) {
-					h = 0;
-					exit;
+					return 0;
 				} else {
 					int currentValue = problem.state[i][j];
 					int goalJ = floor(currentValue / problem.PUZZLE_SIZE);

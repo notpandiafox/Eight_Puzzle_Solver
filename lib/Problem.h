@@ -24,6 +24,12 @@ struct Problem {
 	// std::vector<PuzzleOperation> getValidOperations();
 
 	// initializers
+	Problem() {
+		initial_state = { {1, 2, 3}, {4, 5, 6}, {7, 8, -1}};
+		goal_state = { {1, 2, 3}, {4, 5, 6}, {7, 8, -1}};
+		state = { {1, 2, 3}, {4, 5, 6}, {7, 8, -1}};
+		updateBlankTile();
+	}
     Problem(std::vector<std::vector<int>> initial_state, std::vector<std::vector<int>> goal_state)
     :initial_state{initial_state}, goal_state{goal_state}, state(initial_state) { 
 		updateBlankTile();
